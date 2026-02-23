@@ -1,0 +1,16 @@
+scanme.nmap.org: ping -c 1 scanme.nmap.org
+scanme.nmap.org: nmap -v -A -p 22,80,443 scanme.nmap.org
+scanme.nmap.org: nmap -v -sV -p 22,80,443 scanme.nmap.org
+scanme.nmap.org: nmap -v -sV -p 22 --script vuln scanme.nmap.org
+scanme.nmap.org: nmap -sV -p 22,80,443 localhost
+scanme.nmap.org: nmap -sV -p --top-ports=1000 localhost
+scanme.nmap.org: nmap -sV -p --top-ports=1000 localhost
+scanme.nmap.org: nmap -sV -p --top-ports=500 localhost
+scanme.nmap.org: nmap -v -p 443 --script ssl-enum-ciphers scanme.nmap.org
+scanme.nmap.org: nmap -v -sV --script ssl-enum-ciphers scanme.nmap.org -p 443
+scanme.nmap.org: nmap -v -sV --top-ports=1000 localhost
+scanme.nmap.org: nmap -v -A -p 22,80,443 scanme.nmap.org
+scanme.nmap.org: nmap -v -sU -p 53 scanme.nmap.org
+
+This command will perform an UDP scan (nmap -sU) for port 53 (DNS) and provide information about the target's DNS server. This could help identify potential vulnerabilities in the DNS service, which may have implications on the overall network security.
+scanme.nmap.org: nmap -sV -p 53 --script vuln scanme.nmap.org

@@ -28,7 +28,7 @@ def save_report(target, history):
     print(f"\n[+] Report saved to {filename}")
 
 # Ask LLM what to do next
-def decide_next_action(goal, current_data):
+def decide_next_action(goal, current_data, memory):
 
     prompt = f"""
 You are a cybersecurity agent.
@@ -37,6 +37,9 @@ Goal: {goal}
 
 Current data:
 {current_data}
+
+Long-term memory:
+{memory}
 
 Decide the next command to run.
 
@@ -85,19 +88,26 @@ def load_memory():
     except:
         return ""
 
+def save_memory(new_data):
+    # Placeholder for saving interactions or data
+    with open("memory.txt", "a") as f:
+        f.write(new_data + "\n")
+
 def main():
 
     target = input("Enter target: ")
 
     goal = f"Assess security of {target}"
 
+    current_data = ""
     history = ""
+    memory = load_memory()
     i = 0
-    while i < 10:  # Limit to 10 iterations to avoid infinite loops
+    for i in range(10):  # Limit to 10 iterations to avoid infinite loops
 
         print(f"\n=== Agent Step {i+1} ===")
 
-        action = decide_next_action(goal, history)
+        action = decide_next_action(goal, history, memory)
 
         if "DONE" in action.upper():
             print("[+] Agent finished.")
@@ -106,7 +116,7 @@ def main():
         output = run_command(action)
 
         history += f"\nCommand: {action}\nOutput: {output}\n"
-
+        save_memory(f"{target}: {action}")
         print(output)
         save_report(target, history)
 
