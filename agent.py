@@ -1,5 +1,5 @@
 import subprocess
-
+import time
 from click import command
 import ollama
 
@@ -7,15 +7,17 @@ import ollama
 def run_command(command):
 
     print(f"[+] Executing: {command}")
-
+    start_time = time.time()
     result = subprocess.run(
         command,
         shell=True,
         capture_output=True,
         text=True
     )
-
-    return result.stdout
+    end_time = time.time()
+    duration = end_time - start_time
+    print(f"[+] Command executed in {duration:.2f} seconds")
+    return result.stdout, duration
 
 # Save report to file
 def save_report(target, history):
