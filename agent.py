@@ -1,4 +1,6 @@
 import subprocess
+
+from click import command
 import ollama
 
 # Run shell commands
@@ -46,7 +48,15 @@ Rules:
 - Avoid repeating the same scan
 - If enough information gathered, say: DONE
 
-Respond with only the command or DONE.
+Respond EXACTLY in this format: 
+
+REASON: your reasoning here
+COMMAND: the command to execute
+
+If finished, respond:
+
+REASON: explanation
+COMMAND: DONE
 """
 
     response = ollama.chat(
@@ -54,8 +64,26 @@ Respond with only the command or DONE.
         messages=[{"role": "user", "content": prompt}]
     )
 
-    return response['message']['content'].strip()
+    full_response = response['message']['content'].strip()
 
+    print("\nAgent decision:")
+    print(full_response)
+
+    #Extract command
+    if "COMMAND:" in full_response:
+        command = full_response.split("COMMAND:")[1].strip()
+    else:
+        command = "DONE"
+    
+    return command
+
+def load_memory():
+    # Placeholder for loading past interactions or data
+    try:
+        with open("memory.txt", "r") as f:
+            return f.read()
+    except:
+        return ""
 
 def main():
 
@@ -64,8 +92,8 @@ def main():
     goal = f"Assess security of {target}"
 
     history = ""
-
-    for i in range(5):  # limit steps
+    i = 0
+    while i < 10:  # Limit to 10 iterations to avoid infinite loops
 
         print(f"\n=== Agent Step {i+1} ===")
 
@@ -81,6 +109,7 @@ def main():
 
         print(output)
         save_report(target, history)
+
 
 
 if __name__ == "__main__":
