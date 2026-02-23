@@ -96,7 +96,7 @@ def save_memory(new_data):
         f.write(new_data + "\n")
 
 def main():
-
+    agent_start_time = time.time()
     target = input("Enter target: ")
 
     goal = f"Assess security of {target}"
@@ -115,11 +115,15 @@ def main():
             print("[+] Agent finished.")
             break
 
-        output = run_command(action)
+        output, duration = run_command(action)
 
-        history += f"\nCommand: {action}\nOutput: {output}\n"
+        history += f"\nCommand: {action}\nOutput: {output}\nDuration: {duration:.2f} seconds\n"
+
         save_memory(f"{target}: {action}")
         print(output)
+        agent_end_time = time.time()
+        total_duration = agent_end_time - agent_start_time
+        print(f"[+] Total time elapsed: {total_duration:.2f} seconds")
         save_report(target, history)
 
 
