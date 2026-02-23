@@ -1,0 +1,4 @@
+# Nmap 7.94SVN scan initiated Sun Feb 22 19:52:43 2026 as: nmap -p 22,80,443 -sV -oA scanme scanme.nmap.org
+Host: 45.33.32.156 (scanme.nmap.org)	Status: Up
+Host: 45.33.32.156 (scanme.nmap.org)	Ports: 22/open/tcp//ssh//OpenSSH 6.6.1p1 Ubuntu 2ubuntu2.13 (Ubuntu Linux; protocol 2.0)/, 80/open/tcp//http//Apache httpd 2.4.7 ((Ubuntu))/, 443/closed/tcp//https///
+# Nmap done at Sun Feb 22 19:52:52 2026 -- 1 IP address (1 host up) scanned in 8.28 seconds
