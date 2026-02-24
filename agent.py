@@ -2,33 +2,8 @@ import subprocess
 import time
 from click import command
 import ollama
+from tools import is_command_allowed, run_command
 
-ALLOWED_TOOLS = ["nmap", "ping", "nslookup", "dig"]
-
-def is_command_allowed(command):
-    if not command:
-        return False
-    
-    command_name = command.split()[0]
-    return command_name in ALLOWED_TOOLS
-
-
-
-# Run shell commands
-def run_command(command):
-
-    print(f"[+] Executing: {command}")
-    start_time = time.time()
-    result = subprocess.run(
-        command,
-        shell=True,
-        capture_output=True,
-        text=True
-    )
-    end_time = time.time()
-    duration = end_time - start_time
-    print(f"[+] Command executed in {duration:.2f} seconds")
-    return result.stdout, duration
 
 # Save report to file
 def save_report(target, history):
@@ -130,7 +105,13 @@ def main():
             print(f"[-] Command not allowed: {action}")
             history += f"\nAttempted disallowed command: {action}\n"
             continue
-        output, duration = run_command(action)
+        result = run_command(action)
+        if not result["success"]:
+            print("[!] Command Blocked")
+            continue
+        output = result["output"]
+        duration = result["duration"]
+        print(f"[+] Command executed in {duration:.2f} seconds")
 
         history += f"\nCommand: {action}\nOutput: {output}\nDuration: {duration:.2f} seconds\n"
 

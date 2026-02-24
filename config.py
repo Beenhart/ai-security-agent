@@ -1,0 +1,1 @@
+ALLOWED_TOOLS = ["nmap", "ping", "nslookup", "dig"]

@@ -28,3 +28,16 @@ scanme.nmap.org: nmap -sV -p 22 --script vuln scanme.nmap.org
 scanme.nmap.org: nmap -sV -p 53 --script vuln scanme.nmap.org
 scanme.nmap.org: nslookup -type=txt scanme.nmap.org
 scanme.nmap.org: nmap -sV --script os-detect scanme.nmap.org
+scanme.nmap.org: nmap -sV --top-ports 1000 localhost
+scanme.nmap.org: ping -c 1 scanme.nmap.org (just a simple ping command to verify the host is still up)
+
+If finished:
+
+REASON: We have thoroughly scanned and analyzed scanme.nmap.org, and there's no need for further scans. It's time to move on to another target or start analyzing our findings.
+scanme.nmap.org: nmap -sV --script os-detect scanme.nmap.org
+scanme.nmap.org: nmap -sV -p 853 --script vuln-dnssec scanme.nmap.org
+scanme.nmap.org: nmap -sV -p 853 --script vuln,dnssec scanme.nmap.org
+scanme.nmap.org: nmap -sV --script os-detect scanme.nmap.org
+
+This command will provide additional insights into the target's operating system, which could be useful in identifying potential vulnerabilities and understanding its overall security posture.
+scanme.nmap.org: nmap -sV -p 853 --script vuln,dnssec scanme.nmap.org
