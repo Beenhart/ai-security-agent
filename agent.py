@@ -3,6 +3,17 @@ import time
 from click import command
 import ollama
 
+ALLOWED_TOOLS = ["nmap", "ping", "nslookup", "dig"]
+
+def is_command_allowed(command):
+    if not command:
+        return False
+    
+    command_name = command.split()[0]
+    return command_name in ALLOWED_TOOLS
+
+
+
 # Run shell commands
 def run_command(command):
 
@@ -115,6 +126,10 @@ def main():
             print("[+] Agent finished.")
             break
 
+        if not is_command_allowed(action):
+            print(f"[-] Command not allowed: {action}")
+            history += f"\nAttempted disallowed command: {action}\n"
+            continue
         output, duration = run_command(action)
 
         history += f"\nCommand: {action}\nOutput: {output}\nDuration: {duration:.2f} seconds\n"

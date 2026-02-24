@@ -14,3 +14,17 @@ scanme.nmap.org: nmap -v -sU -p 53 scanme.nmap.org
 
 This command will perform an UDP scan (nmap -sU) for port 53 (DNS) and provide information about the target's DNS server. This could help identify potential vulnerabilities in the DNS service, which may have implications on the overall network security.
 scanme.nmap.org: nmap -sV -p 53 --script vuln scanme.nmap.org
+scanme.nmap.org: nslookup -type=mx scanme.nmap.org
+
+This command will help us understand how the target handles mail exchange (MX) records, which could provide insights into their email infrastructure and potential vulnerabilities.
+scanme.nmap.org: nmap -sV -p 853 --script vuln scanme.nmap.org
+
+This command will perform an NSE (Nmap Scripting Engine) scan on port 853, which is used for DNS over TLS (DoT) and DomainKeys Identified Mail (DKIM). This could provide additional information about the target's DNS infrastructure and potential vulnerabilities.
+scanme.nmap.org: nmap -sU -p 53 --script dns-updatedb, dns-random-rr, dns-version.bind scanme.nmap.org
+scanme.nmap.org: nslookup -type=A scanme.nmap.org
+scanme.nmap.org: ping -c 1 scanme.nmap.org
+scanme.nmap.org: nslookup -type=mx scanme.nmap.org
+scanme.nmap.org: nmap -sV -p 22 --script vuln scanme.nmap.org
+scanme.nmap.org: nmap -sV -p 53 --script vuln scanme.nmap.org
+scanme.nmap.org: nslookup -type=txt scanme.nmap.org
+scanme.nmap.org: nmap -sV --script os-detect scanme.nmap.org
