@@ -3,7 +3,7 @@ import time
 from click import command
 import ollama
 from tools import is_command_allowed, run_command
-
+from memory import load_memory, save_memory
 
 # Save report to file
 def save_report(target, history):
@@ -67,19 +67,6 @@ COMMAND: DONE
         command = "DONE"
     
     return command
-
-def load_memory():
-    # Placeholder for loading past interactions or data
-    try:
-        with open("memory.txt", "r") as f:
-            return f.read()
-    except:
-        return ""
-
-def save_memory(new_data):
-    # Placeholder for saving interactions or data
-    with open("memory.txt", "a") as f:
-        f.write(new_data + "\n")
 
 def main():
     agent_start_time = time.time()

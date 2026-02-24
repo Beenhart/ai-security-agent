@@ -41,3 +41,5 @@ scanme.nmap.org: nmap -sV --script os-detect scanme.nmap.org
 
 This command will provide additional insights into the target's operating system, which could be useful in identifying potential vulnerabilities and understanding its overall security posture.
 scanme.nmap.org: nmap -sV -p 853 --script vuln,dnssec scanme.nmap.org
+scanme.nmap.org: nmap -sV --top-ports 1000 scanme.nmap.org
+scanme.nmap.org: nmap -sU -p 53,111,123,161,162 scanme.nmap.org
