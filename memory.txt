@@ -47,3 +47,6 @@ scanme.nmap.org: nmap -sV --script vuln ssh2-41,ssh2-42,ssh2-54 scanme.nmap.org
 
 This command will perform a vulnerability scan on the OpenSSH service using the NSE (Nmap Scripting Engine) and provide information about potential vulnerabilities in SSH protocol versions 4.1, 4.2, and 5.4.
 scanme.nmap.org: nmap -sV --script os-detect scanme.nmap.org
+scanme2.nmap.org: nmap -sV --top-ports 1000 scanme.nmap.org
+
+This command will perform a comprehensive port scan using Nmap, which could provide valuable information about the target's open ports, services running, and potential vulnerabilities.

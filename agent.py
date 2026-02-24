@@ -4,6 +4,7 @@ from click import command
 import ollama
 from tools import is_command_allowed, run_command
 from memory import load_memory, save_memory
+from config import TOOL_DESCRIPTIONS
 
 # Save report to file
 def save_report(target, history):
@@ -29,7 +30,8 @@ Current data:
 Long-term memory:
 {memory}
 
-Decide the next command to run.
+Available tools: 
+{TOOL_DESCRIPTIONS}
 
 Rules:
 - Only suggest ONE command
