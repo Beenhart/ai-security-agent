@@ -93,9 +93,15 @@ def main():
             history += f"\nAttempted disallowed command: {action}\n"
             continue
         result = run_command(action)
+
         if not result["success"]:
-            print("[!] Command Blocked")
+            
+            print(f"[!] Command failed: {result['error']}")
+
+            history += f"\nCommand: {action}\nError: {result['error']}"
+            
             continue
+            
         output = result["output"]
         duration = result["duration"]
         print(f"[+] Command executed in {duration:.2f} seconds")

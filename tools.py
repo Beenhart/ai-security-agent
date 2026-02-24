@@ -14,13 +14,21 @@ def run_command(command):
         return {"success": False, "output": "", "duration": 0, "error": "Command not allowed"}
 
     start_time = time.time()
-
-    result = subprocess.run(
-        command,
-        shell=True,
-        capture_output=True,
-        text=True
-    )
+    try:
+        result = subprocess.run(
+            command,
+            shell=True,
+            capture_output=True,
+            text=True
+            )
+    except subprocess.TimeoutExpired:
+        end_time = time.time()
+        return {
+            "success": False,
+            "output": "",
+            "duration": end_time - start_time,
+            "error": "Command timed out"
+        }
     end_time = time.time()
     return {
         "success": True,
